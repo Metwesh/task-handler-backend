@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get("/", (_req, res) => res.send("sucess"));
 app.use(require("./routes/getUsers"));
 app.use(require("./routes/signin"));
 app.use(require("./routes/signup"));
@@ -20,9 +21,9 @@ app.use(require("./routes/updateTasks"));
 
 const dbo = require("./db/conn");
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 3001, () => {
   dbo.connectToServer(function (err) {
     if (err) console.error(err);
   });
-  console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${process.env.PORT || 3001}`);
 });
