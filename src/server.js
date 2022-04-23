@@ -8,7 +8,6 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/", (_req, res) => res.send("sucess"));
 app.use(require("./routes/getUsers"));
 app.use(require("./routes/signin"));
 app.use(require("./routes/signup"));
