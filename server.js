@@ -5,16 +5,9 @@ const helmet = require("helmet");
 
 require("dotenv").config({ path: "./config.env" });
 
-const whitelist = ["https://task-handler-v2.herokuapp.com/", "197.47.241.81"];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+var corsOptions = {
+  origin: "https://task-handler-v2.herokuapp.com",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(helmet());
