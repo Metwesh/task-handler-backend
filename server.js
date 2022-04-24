@@ -1,10 +1,24 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const helmet = require("helmet");
 
 require("dotenv").config({ path: "./config.env" });
 
-app.use(cors());
+const whitelist = ["https://task-handler-v2.herokuapp.com/"];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(helmet());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
