@@ -5,7 +5,7 @@ const helmet = require("helmet");
 
 require("dotenv").config({ path: "./config.env" });
 
-const whitelist = ["https://task-handler-v2.herokuapp.com/"];
+const whitelist = ["https://task-handler-v2.herokuapp.com/", "197.47.241.81"];
 
 const corsOptions = {
   origin: function (origin, callback) {
