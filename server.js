@@ -3,15 +3,16 @@ const app = express();
 const cors = require("cors");
 const helmet = require("helmet");
 
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./.env" });
 
-var corsOptions = {
-  origin: "https://task-handler-v2.herokuapp.com",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// var corsOptions = {
+//   origin: "https://task-handler-v2.herokuapp.com",
+//   optionsSuccessStatus: 200,
+// };
 
 app.use(helmet());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -26,9 +27,9 @@ app.use(require("./src/routes/updateTasks"));
 
 const dbo = require("./src/db/conn");
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(process.env.PORT || 3003, () => {
   dbo.connectToServer(function (err) {
     if (err) console.error(err);
   });
-  console.log(`Server is running on port: ${process.env.PORT || 3001}`);
+  console.log(`Server is running on port: ${process.env.PORT || 3003}`);
 });

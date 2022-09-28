@@ -4,7 +4,6 @@ const recordRoutes = express.Router();
 
 const dbo = require("../db/conn");
 
-// This section will help you get a list of all the records.
 recordRoutes.route("/getallusers").get(async function (_req, res) {
   let db_connect = dbo.getDb("taskhandler");
   await db_connect
