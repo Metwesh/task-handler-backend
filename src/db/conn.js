@@ -1,25 +1,26 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const Db = process.env.ATLAS_URI;
-const client = new MongoClient(Db, {
+const mongoClient = new MongoClient(process.env.ATLAS_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
 });
 
-var _db;
+var db;
 
 module.exports = {
-  connectToServer: function (callback) {
-    client.connect(function (err, db) {
-      if (db) {
-        _db = db.db("taskhandler");
+  connectToServer: async function (callback) {
+    mongoClient.connect(function (err, Db) {
+      if (!Db) {
+        return callback(err);
+      } else {
         console.log("Successfully connected to Task Handler DB.");
+        return (db = Db.db("taskhandler"));
       }
-      return callback(err);
     });
   },
 
   getDb: function () {
-    return _db;
+    return db;
   },
 };

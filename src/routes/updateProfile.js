@@ -1,8 +1,11 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
 
 const recordRoutes = express.Router();
+
+const jwt = require("jsonwebtoken");
 
 const dbo = require("../db/conn");
 
@@ -51,20 +54,21 @@ async function checkOldPassword(db_connect, myquery, req, response) {
 
 function checkValues(req, newValues) {
   if (
-    !req.body.hasOwnProperty("name") ||
-    !req.body.hasOwnProperty("email") ||
-    !req.body.hasOwnProperty("newPassword")
+    !Object.prototype.hasOwnProperty.call(req.body, "name") ||
+    !Object.prototype.hasOwnProperty.call(req.body, "email") ||
+    !Object.prototype.hasOwnProperty.call(req.body, "newPassword")
   )
     return false;
-  if (req.body.hasOwnProperty("name")) newValues["name"] = `${req.body.name}`;
-  if (req.body.hasOwnProperty("email"))
+  if (Object.prototype.hasOwnProperty.call(req.body, "name"))
+    newValues["name"] = `${req.body.name}`;
+  if (Object.prototype.hasOwnProperty.call(req.body, "email"))
     newValues["email"] = `${req.body.email}`;
-  if (req.body.hasOwnProperty("newPassword"))
+  if (Object.prototype.hasOwnProperty.call(req.body, "newPassword"))
     newValues["password"] = `${req.body.newPassword}`;
 }
 
 async function hashNewPassword(req, newValues) {
-  req.body.hasOwnProperty("newPassword") &&
+  Object.prototype.hasOwnProperty.call(req.body, "newPassword") &&
     (await bcrypt
       .hash(newValues?.newPassword, saltRounds)
       .then(function (hash) {
