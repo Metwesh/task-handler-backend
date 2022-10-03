@@ -5,10 +5,10 @@ const helmet = require("helmet");
 
 const { createClient } = require("redis");
 
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./.env" });
 
 // Development
-const corsOptions = null;
+const corsOptions = "";
 
 // Production
 // const corsOptions = {
@@ -17,8 +17,7 @@ const corsOptions = null;
 // };
 
 app.use(helmet());
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -43,7 +42,7 @@ app.listen(process.env.PORT || 3001, async () => {
 
   await redisClient.connect();
 
-  await dbo.connectToServer(function (err) {
+  dbo.connectToServer(function (err) {
     if (err) console.error(err);
   });
 });
