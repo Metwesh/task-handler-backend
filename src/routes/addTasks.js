@@ -20,7 +20,7 @@ recordRoutes.route("/addtask").post(async function (request, response) {
     status,
   } = request.body;
 
-  let query = {
+  let data = {
     task: task,
     adminEmail: adminEmail,
     adminName: adminName,
@@ -35,7 +35,7 @@ recordRoutes.route("/addtask").post(async function (request, response) {
 
   await db_connect
     .collection("tasks")
-    .insertOne(query, function (error, result) {
+    .insertOne(data, function (error, result) {
       if (error) throw error;
       response.json(result);
     });

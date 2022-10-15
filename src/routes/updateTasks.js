@@ -58,5 +58,39 @@ recordRoutes.route("/updatedeletetasks").post(async function (req, response) {
       response.json(res);
     });
 });
+//TODO: Implement this
+recordRoutes.route("/updatetask/:id").post(async function (req, response) {
+  let db_connect = dbo.getDb("taskhandler");
+  let myquery = { _id: ObjectId(req.params.id) };
+  let {
+    task,
+    adminEmail,
+    adminRole,
+    adminName,
+    deadline,
+    employeeEmails,
+    employeeNames,
+    status,
+  } = req.body;
+  await db_connect.collection("tasks").updateOne(
+    myquery,
+    {
+      $set: {
+        task,
+        adminEmail,
+        adminRole,
+        adminName,
+        deadline,
+        employeeEmails,
+        employeeNames,
+        status,
+      },
+    },
+    function (err, res) {
+      if (err) throw err;
+      response.json(res);
+    }
+  );
+});
 
 module.exports = recordRoutes;
