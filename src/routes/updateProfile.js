@@ -18,10 +18,10 @@ recordRoutes.route("/updateuser/:id").post(async function (req, response) {
   if (Object.keys(req.body).length === 0) return;
 
   await checkOldPassword(db_connect, myquery, req, response);
-  if (!checkOldPassword) return;
+  if (!checkOldPassword(db_connect, myquery, req, response)) return;
 
   checkValues(req, newValues);
-  if (!checkValues) return;
+  if (!checkValues(req, newValues)) return;
 
   await hashNewPassword(req, newValues);
 
@@ -35,7 +35,6 @@ recordRoutes.route("/updateuser/:id").post(async function (req, response) {
 });
 
 ////////////////////////////////////
-
 async function checkOldPassword(db_connect, myquery, req, response) {
   await db_connect
     .collection("users")
