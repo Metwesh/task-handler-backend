@@ -58,7 +58,7 @@ recordRoutes.route("/updatedeletetasks").post(async function (req, response) {
       response.json(res);
     });
 });
-//TODO: Implement this
+
 recordRoutes.route("/updatetask/:id").post(async function (req, response) {
   let db_connect = dbo.getDb("taskhandler");
   let myquery = { _id: ObjectId(req.params.id) };
@@ -68,8 +68,9 @@ recordRoutes.route("/updatetask/:id").post(async function (req, response) {
     adminRole,
     adminName,
     deadline,
-    employeeEmails,
+    startDate,
     employeeNames,
+    employeeEmails,
     status,
   } = req.body;
   await db_connect.collection("tasks").updateOne(
@@ -81,8 +82,9 @@ recordRoutes.route("/updatetask/:id").post(async function (req, response) {
         adminRole,
         adminName,
         deadline,
-        employeeEmails,
+        startDate,
         employeeNames,
+        employeeEmails,
         status,
       },
     },
