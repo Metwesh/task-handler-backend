@@ -8,13 +8,13 @@ const { createClient } = require("redis");
 require("dotenv").config({ path: "./.env" });
 
 // Development
-const corsOptions = "";
+// const corsOptions = "";
 
 // Production
-// const corsOptions = {
-//   origin: "https://task-handler-v2.herokuapp.com",
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
+const corsOptions = {
+  origin: "https://task-handler-v2.herokuapp.com/",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 app.use(helmet());
 app.use(cors(corsOptions));
