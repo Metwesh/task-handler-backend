@@ -11,10 +11,7 @@ require("dotenv").config({ path: "./.env" });
 // const corsOptions = "";
 
 // Production
-const corsOptions = {
-  origin: "https://task-handler-v2.herokuapp.com/",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+const corsOptions = "https://task-handler-v2.herokuapp.com/";
 
 app.use(helmet());
 app.use(cors(corsOptions));
